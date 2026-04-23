@@ -82,15 +82,15 @@ class LiveVotingUI
 
         $this->pl = ilLiveVotingPlugin::getInstance();
         $this->liveVoting = $liveVoting;
-        $this->renderer = $DIC->ui()->renderer();
-        $this->factory = $DIC->ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
+        $this->factory = $DIC[ui()->factory();
     }
 
     public function executeCommand(): void
     {
         global $DIC;
 
-        $cmd = $DIC->ctrl()->getCmd('showIndex');
+        $cmd = $DIC[ctrl()->getCmd('showIndex');
 
         $this->{$cmd}();
     }
@@ -127,32 +127,32 @@ class LiveVotingUI
             $b = ilLinkButton::getInstance();
             $b->setCaption($this->pl->txt('player_start_voting'), false);
             $b->addCSSClass('xlvo-preview');
-            $b->setUrl($DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayer"));
+            $b->setUrl($DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayer"));
             $b->setId('btn-start-voting');
             $b->setPrimary(true);
-            $DIC->toolbar()->addButtonInstance($b);
+            $DIC[toolbar()->addButtonInstance($b);
 
 
-            $DIC->toolbar()->addText($this->getQuestionSelectionList());
+            $DIC[toolbar()->addText($this->getQuestionSelectionList());
 
             $b2 = ilLinkButton::getInstance();
             $b2->setCaption($this->pl->txt('player_start_voting_and_unfreeze'), false);
             $b2->addCSSClass('xlvo-preview');
-            $b2->setUrl($DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayerAnUnfreeze"));
+            $b2->setUrl($DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayerAnUnfreeze"));
             $b2->setId('btn-start-voting-unfreeze');
-            $DIC->toolbar()->addButtonInstance($b2);
+            $DIC[toolbar()->addButtonInstance($b2);
         } else {
             $b = ilLinkButton::getInstance();
             $b->setCaption($this->pl->txt('player_start_voting'), false);
             $b->addCSSClass('xlvo-preview');
-            $b->setUrl($DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayerAnUnfreeze"));
+            $b->setUrl($DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayerAnUnfreeze"));
             $b->setId('btn-start-voting');
             $b->setPrimary(true);
-            $DIC->toolbar()->addButtonInstance($b);
+            $DIC[toolbar()->addButtonInstance($b);
         }
 
         $template = new ilTemplate($this->pl->getDirectory() . "/templates/default/Player/tpl." . $this->liveVoting->getMode()->getStartTemplate() . ".html", true, true);
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
 
 
         $template->setVariable('PIN', $this->liveVoting->getPin());
@@ -173,7 +173,7 @@ class LiveVotingUI
         $template->setVariable("ZOOM_TEXT", $this->pl->txt("start_zoom"));
         $template->setVariable("MODAL_SIGNAL", $modal->getShowSignal());
 
-        $js = LiveVotingJs::getInstance()->addSetting("base_url", $DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "", "", true))->name('Player')->init();
+        $js = LiveVotingJs::getInstance()->addSetting("base_url", $DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "", "", true))->name('Player')->init();
 
         if ($this->liveVoting->isShowAttendees()) {
             $js->call('updateAttendees');
@@ -225,8 +225,8 @@ class LiveVotingUI
             'voting_confirm_reset',
         ))->init()->setRunCode();
 
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/player.css');
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/bar.css');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/player.css');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/bar.css');
 
         LiveVotingInputFreeTextUI::addJsAndCss();
         /*xlvoCorrectOrderResultsGUI::addJsAndCss();
@@ -256,11 +256,11 @@ class LiveVotingUI
         try {
             $modal = new LiveVotingQRModal($this->liveVoting);
 
-            $DIC->ui()->mainTemplate()->setContent($modal->getHtml() . $this->getPlayerHTML());
+            $DIC[ui()->mainTemplate()->setContent($modal->getHtml() . $this->getPlayerHTML());
 
             $this->initToolbarDuringVoting();
         } catch (JsonException|ilCtrlException|LiveVotingException|ilTemplateException|ilException $e) {
-            $DIC->ui()->mainTemplate()->setContent($DIC->ui()->renderer()->render($DIC->ui()->factory()->messageBox()->failure($e->getMessage())));
+            $DIC[ui()->mainTemplate()->setContent($DIC[ui()->renderer()->render($DIC[ui()->factory()->messageBox()->failure($e->getMessage())));
         }
     }
 
@@ -281,7 +281,7 @@ class LiveVotingUI
             );
             $suspendButton->setUrl('#');
             $suspendButton->setId('btn-freeze');
-            $DIC->toolbar()->addButtonInstance($suspendButton);
+            $DIC[toolbar()->addButtonInstance($suspendButton);
 
             // Unfreeze
             $playButton = ilLinkButton::getInstance();
@@ -291,9 +291,9 @@ class LiveVotingUI
             );
             $playButton->setUrl('#');
             $playButton->setId('btn-unfreeze');
-            $DIC->toolbar()->addStickyItem($playButton);
+            $DIC[toolbar()->addStickyItem($playButton);
 
-            $DIC->toolbar()->addStickyItem($this->getVoteDropdown());
+            $DIC[toolbar()->addStickyItem($this->getVoteDropdown());
         }
 
         // Hide
@@ -301,14 +301,14 @@ class LiveVotingUI
         $suspendButton->setCaption($this->pl->txt('player_hide_results'), false);
         $suspendButton->setUrl('#');
         $suspendButton->setId('btn-hide-results');
-        $DIC->toolbar()->addButtonInstance($suspendButton);
+        $DIC[toolbar()->addButtonInstance($suspendButton);
 
         // Show
         $suspendButton = ilLinkButton::getInstance();
         $suspendButton->setCaption($this->pl->txt('player_show_results'), false);
         $suspendButton->setUrl('#');
         $suspendButton->setId('btn-show-results');
-        $DIC->toolbar()->addButtonInstance($suspendButton);
+        $DIC[toolbar()->addButtonInstance($suspendButton);
 
         // Reset
         if ($this->liveVoting->getMode()->getMode() != LiveVotingMode::CHALLENGE_MODE) {
@@ -316,61 +316,64 @@ class LiveVotingUI
             $suspendButton->setCaption('<span class="glyphicon glyphicon-remove"></span> ' . $this->pl->txt('player_reset'), false);
             $suspendButton->setUrl('#');
             $suspendButton->setId('btn-reset');
-            $DIC->toolbar()->addButtonInstance($suspendButton);
+            $DIC[toolbar()->addButtonInstance($suspendButton);
         }
 
         if ($this->liveVoting->getMode()->getMode() != LiveVotingMode::CHALLENGE_MODE) {
-            $DIC->toolbar()->addSeparator();
+            $DIC[toolbar()->addSeparator();
 
             $param_manager = ParamManager::getInstance();
             if (!$param_manager->isPpt()) {
                 $prevBtn = ilLinkButton::getInstance();
-                $prevBtn->setCaption(ilGlyphGUI::get(ilGlyphGUI::PREVIOUS), false);
+                $prevIcon = $DIC[ui()->factory()->symbol()->glyph()->back();
+                $prevBtn->setCaption($DIC[ui()->renderer()->render($prevIcon), false);
                 $prevBtn->setId('btn-previous');
                 $prevBtn->setDisabled(true);
-                $DIC->toolbar()->addButtonInstance($prevBtn);
+                $DIC[toolbar()->addButtonInstance($prevBtn);
 
                 $nextBtn = ilLinkButton::getInstance();
-                $nextBtn->setCaption(ilGlyphGUI::get(ilGlyphGUI::NEXT), false);
+                $nextIcon = $DIC[ui()->factory()->symbol()->glyph()->next();
+                $nextBtn->setCaption($DIC[ui()->renderer()->render($nextIcon), false);
                 $nextBtn->setId('btn-next');
                 $nextBtn->setDisabled(true);
-                $DIC->toolbar()->addButtonInstance($nextBtn);
+                $DIC[toolbar()->addButtonInstance($nextBtn);
 
                 $current_selection_list = $this->getQuestionSelectionList();
-                $DIC->toolbar()->addText($current_selection_list);
+                $DIC[toolbar()->addText($current_selection_list);
             }
 
-            $DIC->toolbar()->addSeparator();
+            $DIC[toolbar()->addSeparator();
         }
 
         $suspendButton = ilLinkButton::getInstance();
         $suspendButton->setCaption('<span class="glyphicon glyphicon-fullscreen"></span>', false);
         $suspendButton->setUrl('#');
         $suspendButton->setId('btn-start-fullscreen');
-        $DIC->toolbar()->addButtonInstance($suspendButton);
+        $DIC[toolbar()->addButtonInstance($suspendButton);
 
         $suspendButton = ilLinkButton::getInstance();
         $suspendButton->setCaption('<span class="glyphicon glyphicon-resize-small"></span>', false);
         $suspendButton->setUrl('#');
         $suspendButton->setId('btn-close-fullscreen');
-        $DIC->toolbar()->addButtonInstance($suspendButton);
+        $DIC[toolbar()->addButtonInstance($suspendButton);
 
         if ($this->liveVoting->getMode()->getMode() == LiveVotingMode::CHALLENGE_MODE) {
             $endTime = ilLinkButton::getInstance();
             $endTime->setCaption($this->pl->txt("end_time"), false);
             $endTime->setId('btn-end_time');
-            $DIC->toolbar()->addButtonInstance($endTime);
+            $DIC[toolbar()->addButtonInstance($endTime);
 
             $nextBtn = ilLinkButton::getInstance();
             $nextBtn->setCaption($this->pl->txt("next"), false);
             $nextBtn->setId('btn-next_cm');
-            $DIC->toolbar()->addButtonInstance($nextBtn);
+            $DIC[toolbar()->addButtonInstance($nextBtn);
         } else {
             $suspendButton = ilLinkButton::getInstance();
-            $suspendButton->setCaption(ilGlyphGUI::get(ilGlyphGUI::CLOSE) . $this->pl->txt('player_terminate'), false);
-            $suspendButton->setUrl($DIC->ctrl()->getLinkTarget(new ilObjLiveVotingGUI(), 'terminate'));
+            $closeIcon = $DIC[ui()->factory()->symbol()->glyph()->close();
+            $suspendButton->setCaption($DIC[ui()->renderer()->render($closeIcon) . ' ' . $this->pl->txt('player_terminate'), false);
+            $suspendButton->setUrl($DIC[ctrl()->getLinkTarget(new ilObjLiveVotingGUI(), 'terminate'));
             $suspendButton->setId('btn-terminate');
-            $DIC->toolbar()->addButtonInstance($suspendButton);
+            $DIC[toolbar()->addButtonInstance($suspendButton);
         }
     }
 
@@ -383,29 +386,29 @@ class LiveVotingUI
     {
         global $DIC;
 
-        $factory = $DIC->ui()->factory();
+        $factory = $DIC[ui()->factory();
 
         $items = array();
 
         foreach ($this->liveVoting->getQuestions() as $question) {
-            $DIC->ctrl()->setParameterByClass("ilObjLiveVotingGUI", "xlvo_voting", $question->getId());
+            $DIC[ctrl()->setParameterByClass("ilObjLiveVotingGUI", "xlvo_voting", $question->getId());
 
             $items[] = $factory->button()->shy(
                 $question->getTitle(),
-                $DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayer")
+                $DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "startPlayer")
             );
         }
 
-        $DIC->ctrl()->clearParameterByClass("ilObjLiveVotingGUI", "xlvo_voting");
+        $DIC[ctrl()->clearParameterByClass("ilObjLiveVotingGUI", "xlvo_voting");
 
-        return $DIC->ui()->renderer()->render($factory->dropdown()->standard($items)->withLabel($this->pl->txt('player_voting_list')));
+        return $DIC[ui()->renderer()->render($factory->dropdown()->standard($items)->withLabel($this->pl->txt('player_voting_list')));
     }
 
     protected function getVoteDropdown(): Standard
     {
         global $DIC;
 
-        $factory = $DIC->ui()->factory();
+        $factory = $DIC[ui()->factory();
 
         $items = [];
 

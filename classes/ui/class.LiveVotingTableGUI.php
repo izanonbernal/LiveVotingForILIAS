@@ -26,6 +26,7 @@ use ilCtrlException;
 use ILIAS\Data\URI;
 use ILIAS\HTTP\Wrapper\WrapperFactory;
 use ILIAS\UI\Component\Table\OrderingBinding;
+use ILIAS\UI\Component\Table\OrderingRetrieval;
 use ILIAS\UI\Component\Table\OrderingRowBuilder;
 use ILIAS\UI\Factory;
 use ILIAS\UI\Renderer;
@@ -41,7 +42,7 @@ use LiveVoting\questions\LiveVotingQuestion;
  * Class LiveVotingTableGUI
  * @authors Jesús Copado, Daniel Cazalla, Saúl Díaz, Juan Aguilar <info@surlabs.es>
  */
-class LiveVotingTableGUI  implements OrderingBinding
+class LiveVotingTableGUI  implements OrderingBinding, OrderingRetrieval
 {
     private ilObjLiveVotingGUI $parent_obj;
     private string $parent_cmd;
@@ -65,17 +66,17 @@ class LiveVotingTableGUI  implements OrderingBinding
         $this->parent_obj = $a_parent_obj;
         $this->parent_cmd = $parent_cmd;
 
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
-        $this->ctrl = $DIC->ctrl();
-        $this->ui_service = $DIC->uiService();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
+        $this->ctrl = $DIC[ctrl();
+        $this->ui_service = $DIC[uiService();
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
 
-        $this->request = $DIC->http()->request();
+        $this->request = $DIC[http()->request();
 
-        $this->wrapper = $DIC->http()->wrapper();
-        $this->refinery = $DIC->refinery();
+        $this->wrapper = $DIC[http()->wrapper();
+        $this->refinery = $DIC[refinery();
 
     }
 
@@ -109,10 +110,10 @@ class LiveVotingTableGUI  implements OrderingBinding
         $this->parseData($this->ui_service->filter()->getData($filter));
 
         $table = $this->factory->table()->ordering(
-            "",
-            $this->getColumns(),
             $this,
-            (new URI((string) $this->request->getUri()))->withParameter('saveOrder', 1)
+            (new URI((string) $this->request->getUri()))->withParameter('saveOrder', 1),
+            'Votaciones',
+            $this->getColumns()
         )->withRequest($this->request)
             ->withActions($this->getActions());
 
@@ -256,6 +257,14 @@ class LiveVotingTableGUI  implements OrderingBinding
             $question->save();
         }
 
-        $DIC->ui()->mainTemplate()->setOnScreenMessage("success", $this->plugin->txt('sorting_msg_saved'));
+        $DIC[ui()->mainTemplate()->setOnScreenMessage("success", $this->plugin->txt('sorting_msg_saved'));
+    }
+
+
+    public function getOrdering(): array
+    {
+        return array_map(static function (array $record): string {
+            return (string) $record['id'];
+        }, $this->records);
     }
 }

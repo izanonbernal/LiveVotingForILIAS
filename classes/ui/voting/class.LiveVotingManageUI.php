@@ -59,10 +59,10 @@ class LiveVotingManageUI
         global $DIC;
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
-        $this->control = $DIC->ctrl();
-        $this->request = $DIC->http()->request();
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
+        $this->control = $DIC[ctrl();
+        $this->request = $DIC[http()->request();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
     }
 
     /**
@@ -74,8 +74,8 @@ class LiveVotingManageUI
     {
         global $DIC;
 
-        $f = $DIC->ui()->factory();
-        $renderer = $DIC->ui()->renderer();
+        $f = $DIC[ui()->factory();
+        $renderer = $DIC[ui()->renderer();
         $ico = $f->symbol()->icon()->standard('', '')->withSize('medium')->withAbbreviation('+');
         $image = $f->image()->responsive("src/UI/examples/Image/mountains.jpg", "Image source: https://stocksnap.io, Creative Commons CC0 license");
         $page = $f->modal()->lightboxImagePage($image, 'Mountains');

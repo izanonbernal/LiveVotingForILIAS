@@ -87,21 +87,21 @@ class LiveVotingResultsUI
     {
         global $DIC;
 
-        $DIC->ctrl()->setParameterByClass("ilObjLiveVotingGUI", "round_id", $this->round->getId());
+        $DIC[ctrl()->setParameterByClass("ilObjLiveVotingGUI", "round_id", $this->round->getId());
 
         $export_button = ilLinkButton::getInstance();
-        $export_button->setUrl($DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "exportResultsCsv"));
+        $export_button->setUrl($DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "exportResultsCsv"));
         $export_button->setCaption(ilLiveVotingPlugin::getInstance()->txt("voting_export") . ' CSV', false);
-        $DIC->toolbar()->addButtonInstance($export_button);
+        $DIC[toolbar()->addButtonInstance($export_button);
 
-        $DIC->toolbar()->addSeparator();
+        $DIC[toolbar()->addSeparator();
 
         $button = ilLinkButton::getInstance();
-        $button->setUrl($DIC->ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "confirmNewRound"));
+        $button->setUrl($DIC[ctrl()->getLinkTargetByClass("ilObjLiveVotingGUI", "confirmNewRound"));
         $button->setCaption(ilLiveVotingPlugin::getInstance()->txt("new_round"), false);
-        $DIC->toolbar()->addButtonInstance($button);
+        $DIC[toolbar()->addButtonInstance($button);
 
-        $DIC->toolbar()->addSeparator();
+        $DIC[toolbar()->addSeparator();
 
         $rounds = LiveVotingRound::getRounds($this->liveVoting->getId());
         if (!empty($rounds)) {
@@ -113,14 +113,14 @@ class LiveVotingResultsUI
             $table_selection->setOptions($options);
             $table_selection->setValue($this->round->getId());
 
-            $DIC->toolbar()->setFormAction($DIC->ctrl()->getFormActionByClass("ilObjLiveVotingGUI", "changeRound"));
-            $DIC->toolbar()->addText(ilLiveVotingPlugin::getInstance()->txt("common_round"));
-            $DIC->toolbar()->addInputItem($table_selection);
+            $DIC[toolbar()->setFormAction($DIC[ctrl()->getFormActionByClass("ilObjLiveVotingGUI", "changeRound"));
+            $DIC[toolbar()->addText(ilLiveVotingPlugin::getInstance()->txt("common_round"));
+            $DIC[toolbar()->addInputItem($table_selection);
 
             $button = ilSubmitButton::getInstance();
             $button->setCaption(ilLiveVotingPlugin::getInstance()->txt('common_change'), false);
             $button->setCommand("changeRound");
-            $DIC->toolbar()->addButtonInstance($button);
+            $DIC[toolbar()->addButtonInstance($button);
         }
     }
 

@@ -54,7 +54,7 @@ class MultipleCheck extends Input implements FormInput
         $this->label = $label;
         $this->byline = $byline;
 
-        parent::__construct(new Factory(), $DIC->refinery());
+        parent::__construct(new Factory(), $DIC[refinery());
     }
 
     public function getUpdateOnLoadCode(): Closure

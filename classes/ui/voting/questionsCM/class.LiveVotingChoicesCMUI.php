@@ -78,10 +78,10 @@ class LiveVotingChoicesCMUI
         global $DIC;
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
-        $this->control = $DIC->ctrl();
-        $this->request = $DIC->http()->request();
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
+        $this->control = $DIC[ctrl();
+        $this->request = $DIC[http()->request();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
         $this->customFactory = new CustomFactory();
 
         if ($question_id) {
@@ -155,7 +155,7 @@ class LiveVotingChoicesCMUI
                         "id" => $option->getId(),
                         "isCorrect" => $option->isCorrect()
                     ];
-                }, $options), JSON_UNESCAPED_UNICODE)) : "")->withAdditionalTransformation($DIC->refinery()->custom()->constraint(
+                }, $options), JSON_UNESCAPED_UNICODE)) : "")->withAdditionalTransformation($DIC[refinery()->custom()->constraint(
                     function($value) {
                         $decoded = json_decode(str_replace("\'", '"', $value), true);
 
@@ -189,7 +189,7 @@ class LiveVotingChoicesCMUI
                 $form_action = $this->control->getFormActionByClass(ilObjLiveVotingGUI::class, "selectedChoicesCM");
             }
 
-            $DIC->ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
+            $DIC[ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
 
             return $this->createForm($form_action, $sections);
         } catch (Exception $e) {

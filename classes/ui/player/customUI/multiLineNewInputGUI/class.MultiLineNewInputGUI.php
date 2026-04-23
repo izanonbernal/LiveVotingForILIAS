@@ -119,13 +119,13 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
     public function checkInput(): bool
     {
         global $DIC;
-        $http = $DIC->http();
+        $http = $DIC[http();
         $ok = true;
 
         $originalPost = $http->request()->getParsedBody();
 
         if (count($this->getInputs($this->getRequired())) == 0 || $this->getInputs($this->getRequired()) == null) {
-            $DIC->ui()->mainTemplate()->setOnScreenMessage('failure', $DIC->language()->txt("form_input_not_valid_key_missing", 'options'));
+            $DIC[ui()->mainTemplate()->setOnScreenMessage('failure', $DIC[language()->txt("form_input_not_valid_key_missing", 'options'));
             $ok = false;
         }
 
@@ -145,7 +145,7 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
                     $originalPost[$post_var] = $originalPost[$parent_post_var][$i][$org_post_var];
                 } else {
                     $ok = false;
-                    $DIC->ui()->mainTemplate()->setOnScreenMessage('failure', $DIC->language()->txt("form_input_not_valid_key_missing", 'options', $i));
+                    $DIC[ui()->mainTemplate()->setOnScreenMessage('failure', $DIC[language()->txt("form_input_not_valid_key_missing", 'options', $i));
                     return false;
                 }
 
@@ -161,7 +161,7 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
             return true;
         } else {
 
-            $DIC->ui()->mainTemplate()->setOnScreenMessage('failure', $DIC->language()->txt("form_input_not_valid"));
+            $DIC[ui()->mainTemplate()->setOnScreenMessage('failure', $DIC[language()->txt("form_input_not_valid"));
 
             return false;
         }
@@ -354,7 +354,7 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
                 $tpl->setVariable("HIDE_ADD_FIRST_LINE", $tpl_hidden->get());
             }
 
-            $tpl->setVariable("ADD_FIRST_LINE", $DIC->ui()->renderer()->renderAsync(($DIC->ui()->factory()->symbol()->glyph()->add()->withAdditionalOnLoadCode(function (string $id) use ($counter): string {
+            $tpl->setVariable("ADD_FIRST_LINE", $DIC[ui()->renderer()->renderAsync(($DIC[ui()->factory()->symbol()->glyph()->add()->withAdditionalOnLoadCode(function (string $id) use ($counter): string {
                 return 'il.MultiLineNewInputGUI.clone_template = {};il.MultiLineNewInputGUI.init(' . $counter . ', $("#' . $id . '").parent().parent().parent(), true);';
             }))));
 
@@ -373,12 +373,12 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
             if ($this->isShowSort()) {
                 $sort_tpl = new ilTemplate(ilLiveVotingPlugin::getInstance()->getDirectory() . "/templates/customUI/MultiLineNewInputGUI/templates/multi_line_new_input_gui_sort.html", true, true);
 
-                $sort_tpl->setVariable("UP", $DIC->ui()->renderer()->render($DIC->ui()->factory()->symbol()->glyph()->sortAscending()));
+                $sort_tpl->setVariable("UP", $DIC[ui()->renderer()->render($DIC[ui()->factory()->symbol()->glyph()->sortAscending()));
                 if ($i === 0) {
                     $sort_tpl->setVariable("HIDE_UP", $tpl_hidden->get());
                 }
 
-                $sort_tpl->setVariable("DOWN", $DIC->ui()->renderer()->render($DIC->ui()->factory()->symbol()->glyph()->sortDescending()));
+                $sort_tpl->setVariable("DOWN", $DIC[ui()->renderer()->render($DIC[ui()->factory()->symbol()->glyph()->sortDescending()));
                 if ($i === (count($this->getInputs()) - 1)) {
                     $sort_tpl->setVariable("HIDE_DOWN", $tpl_hidden->get());
                 }
@@ -386,14 +386,14 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
                 $tpl->setVariable("SORT", $sort_tpl->get());
             }
 
-            $tpl->setVariable("ADD", $DIC->ui()->renderer()->renderAsync($DIC->ui()->factory()->symbol()->glyph()->add()->withAdditionalOnLoadCode(function (string $id) use ($i, $counter): string {
+            $tpl->setVariable("ADD", $DIC[ui()->renderer()->renderAsync($DIC[ui()->factory()->symbol()->glyph()->add()->withAdditionalOnLoadCode(function (string $id) use ($i, $counter): string {
                 return 'il.MultiLineNewInputGUI.init(' . $counter . ', $("#' . $id . '").parent().parent().parent())' . ($i === (count($this->getInputs()) - 1) ? ';il.MultiLineNewInputGUI.update('
                         . $counter . ', $("#'
                         . $id
                         . '").parent().parent().parent().parent())' : '');
             })));
 
-            $tpl->setVariable("REMOVE", $DIC->ui()->renderer()->render($DIC->ui()->factory()->symbol()->glyph()->remove()));
+            $tpl->setVariable("REMOVE", $DIC[ui()->renderer()->render($DIC[ui()->factory()->symbol()->glyph()->remove()));
             if ($this->getRequired() && count($this->getInputs()) < 2) {
                 $tpl->setVariable("HIDE_REMOVE", $tpl_hidden->get());
             }
@@ -500,7 +500,7 @@ class MultiLineNewInputGUI extends ilFormPropertyGUI implements ilTableFilterIte
             if ($input->getAlert()) {
                 $input_alert_tpl = new ilTemplate(ilLiveVotingPlugin::getInstance()->getDirectory() . "/templates/customUI/Items/templates/input_gui_input_alert.html", true, true);
                 $input_alert_tpl->setVariable("IMG",
-                    $DIC->ui()->renderer()->render($DIC->ui()->factory()->image()->standard(ilUtil::getImagePath("icon_alert.svg"), $DIC->language()->txt("alert"))));
+                    $DIC[ui()->renderer()->render($DIC[ui()->factory()->image()->standard(ilUtil::getImagePath("icon_alert.svg"), $DIC[language()->txt("alert"))));
                 $input_alert_tpl->setVariable("TXT", htmlspecialchars($input->getAlert()));
                 $input_tpl->setVariable("ALERT", ($input_alert_tpl->get()));
             }

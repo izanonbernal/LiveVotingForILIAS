@@ -86,8 +86,8 @@ class LiveVotingDisplayPlayerUI
 
         $this->pl = ilLiveVotingPlugin::getInstance();
         $this->liveVoting = $liveVoting;
-        $this->renderer = $DIC->ui()->renderer();
-        $this->factory = $DIC->ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
+        $this->factory = $DIC[ui()->factory();
 
         try {
             if ($this->liveVoting->getMode()->getMode() == LiveVotingMode::CHALLENGE_MODE) {
@@ -96,9 +96,9 @@ class LiveVotingDisplayPlayerUI
                 $this->tpl = new ilTemplate($this->pl->getDirectory() . "/templates/default/Player/tpl.player.html", true, true);
             }
 
-            $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
+            $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
         } catch (ilSystemStyleException|ilTemplateException $e) {
-            $DIC->ui()->mainTemplate()->setContent($this->renderer->render($this->factory->messageBox()->failure($e->getMessage())));
+            $DIC[ui()->mainTemplate()->setContent($this->renderer->render($this->factory->messageBox()->failure($e->getMessage())));
         }
 
     }

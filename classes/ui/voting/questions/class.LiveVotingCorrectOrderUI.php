@@ -73,10 +73,10 @@ class LiveVotingCorrectOrderUI
         global $DIC;
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
-        $this->control = $DIC->ctrl();
-        $this->request = $DIC->http()->request();
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
+        $this->control = $DIC[ctrl();
+        $this->request = $DIC[http()->request();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
         $this->customFactory = new CustomFactory();
 
         if ($question_id) {
@@ -162,7 +162,7 @@ class LiveVotingCorrectOrderUI
             } else {
                 $form_action = $this->control->getFormActionByClass(ilObjLiveVotingGUI::class, "selectedCorrectOrder");
             }
-            $DIC->ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
+            $DIC[ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
 
             return $this->createForm($form_action, $sections);
         } catch (Exception $e) {

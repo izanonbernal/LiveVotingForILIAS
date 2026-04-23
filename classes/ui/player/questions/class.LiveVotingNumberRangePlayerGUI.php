@@ -124,7 +124,7 @@ class LiveVotingNumberRangePlayerGUI extends LiveVotingQuestionTypesUI
         global $DIC;
 
         $template = new IlTemplate(ilLiveVotingPlugin::getInstance()->getDirectory() . '/templates/default/QuestionTypes/NumberRange/tpl.number_range.html', true, true);
-        $template->setVariable('ACTION', $DIC->ctrl()->getFormAction($this));
+        $template->setVariable('ACTION', $DIC[ctrl()->getFormAction($this));
         $template->setVariable('SHOW_PERCENTAGE', (int)$this->getPlayer()->getActiveVotingObject()->isPercentage());
 
         /**

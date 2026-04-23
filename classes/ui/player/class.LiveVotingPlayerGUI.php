@@ -78,12 +78,12 @@ class LiveVotingPlayerGUI
 
         $this->setLiveVoting(LiveVoting::getLiveVotingFromPin($pin));
 
-        $next_class = $DIC->ctrl()->getNextClass();
+        $next_class = $DIC[ctrl()->getNextClass();
 
         switch ($next_class) {
             case '':
                 $is_voting_anonymous = $this->getLiveVoting()->isAnonymous();
-                $is_valid_user = !(is_null($DIC->user()) || $DIC->user()->getId() == 0 || $DIC->user()->getId() == 13);
+                $is_valid_user = !(is_null($DIC[user()) || $DIC[user()->getId() == 0 || $DIC[user()->getId() == 13);
 
                 if (!$is_voting_anonymous && !$is_valid_user) {
                     $plugin_path = substr(ilLiveVotingPlugin::getInstance()->getDirectory(), 0);
@@ -91,21 +91,21 @@ class LiveVotingPlayerGUI
                     $login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $pin;
 
 
-                    $DIC->ctrl()->redirectToURL($login_target);
+                    $DIC[ctrl()->redirectToURL($login_target);
                 } else {
-                    $cmd = $DIC->ctrl()->getCmd("startVoterPlayer");
+                    $cmd = $DIC[ctrl()->getCmd("startVoterPlayer");
                     $this->{$cmd}();
                 }
 
                 break;
             default:
-                $class_file = '../' . ltrim($DIC->ctrl()->lookupClassPath($next_class), './');
+                $class_file = '../' . ltrim($DIC[ctrl()->lookupClassPath($next_class), './');
                 if (is_file($class_file)) {
                     include_once($class_file);
                     $gui = new $next_class();
-                    $DIC->ctrl()->forwardCommand($gui);
+                    $DIC[ctrl()->forwardCommand($gui);
                 } else {
-                    $DIC->ui()->mainTemplate()->setOnScreenMessage('failure', 'Plugin GUI-Class not found! (' . $next_class . ')');
+                    $DIC[ui()->mainTemplate()->setOnScreenMessage('failure', 'Plugin GUI-Class not found! (' . $next_class . ')');
                 }
                 break;
         }
@@ -132,7 +132,7 @@ class LiveVotingPlayerGUI
 
         if ($this->live_voting->getMode()->getMode() == LiveVotingMode::CHALLENGE_MODE) {
             if ($this->live_voting->isNicknames() && LiveVotingParticipant::getInstance()->getNickname($player->getId()) == "") {
-                $DIC->ctrl()->redirectByClass(["ilObjPluginDispatchGUI", "LiveVotingPlayerGUI"], 'requestNickname');
+                $DIC[ctrl()->redirectByClass(["ilObjPluginDispatchGUI", "LiveVotingPlayerGUI"], 'requestNickname');
             }
         }
 
@@ -150,9 +150,9 @@ class LiveVotingPlayerGUI
     {
         global $DIC;
 
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css', '');
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css', '');
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/number_range.css', '');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css', '');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css', '');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/number_range.css', '');
     }
 
     /**
@@ -168,10 +168,10 @@ class LiveVotingPlayerGUI
 
         $this->setVoterPlayerTemplate($tpl_voter_player);
 
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
 
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoMain.js');
-        $DIC->ui()->mainTemplate()->addJavaScript('https://code.jquery.com/ui/1.14.1/jquery-ui.min.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoMain.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('https://code.jquery.com/ui/1.14.1/jquery-ui.min.js');
 
         LiveVotingJs::getInstance()->name('Main')->init()->setRunCode();
 
@@ -211,16 +211,16 @@ class LiveVotingPlayerGUI
         LiveVotingJs::getInstance()->api($this)->name('SingleVote')->category('QuestionTypes/SingleVote')
             ->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 
-        $DIC->ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/customUI/MultiLineNewInputGUI/css/multi_line_new_input_gui.css");
-        $DIC->ui()->mainTemplate()->addJavaScript("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/customUI/MultiLineNewInputGUI/js/multi_line_new_input_gui.js");
+        $DIC[ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/customUI/MultiLineNewInputGUI/css/multi_line_new_input_gui.css");
+        $DIC[ui()->mainTemplate()->addJavaScript("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/customUI/MultiLineNewInputGUI/js/multi_line_new_input_gui.js");
 
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoVoter.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoVoter.js');
 
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/NumberRange/xlvoNumberRange.js');
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/SingleVote/xlvoSingleVote.js');
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/FreeOrder/xlvoFreeOrder.js');
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/FreeInput/xlvoFreeInput.js');
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/CorrectOrder/xlvoCorrectOrder.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/NumberRange/xlvoNumberRange.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/SingleVote/xlvoSingleVote.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/FreeOrder/xlvoFreeOrder.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/FreeInput/xlvoFreeInput.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/CorrectOrder/xlvoCorrectOrder.js');
         LiveVotingJs::getInstance()->api($this)->addLibToHeader('bootstrap-slider.js');
         LiveVotingJs::getInstance()->api($this)->name('CorrectOrder')->category('QuestionTypes/CorrectOrder')->init();
         LiveVotingJs::getInstance()->api($this)->name('FreeInput')->category('QuestionTypes/FreeInput')->init();
@@ -234,12 +234,12 @@ class LiveVotingPlayerGUI
     {
         global $DIC;
 
-        $DIC->ui()->mainTemplate()->setVariable("PLAYER_CONTENT", $this->getVoterPlayerTemplate()->get());
+        $DIC[ui()->mainTemplate()->setVariable("PLAYER_CONTENT", $this->getVoterPlayerTemplate()->get());
 
-        $DIC->ui()->mainTemplate()->fillCssFiles();
-        $DIC->ui()->mainTemplate()->fillJavaScriptFiles();
-        $DIC->ui()->mainTemplate()->fillOnLoadCode();
-        $DIC->ui()->mainTemplate()->printToStdout('DEFAULT', false, true);
+        $DIC[ui()->mainTemplate()->fillCssFiles();
+        $DIC[ui()->mainTemplate()->fillJavaScriptFiles();
+        $DIC[ui()->mainTemplate()->fillOnLoadCode();
+        $DIC[ui()->mainTemplate()->printToStdout('DEFAULT', false, true);
     }
 
     /**
@@ -377,10 +377,10 @@ class LiveVotingPlayerGUI
         }
 
         $tpl = new ilTemplate(ilLiveVotingPlugin::getInstance()->getDirectory() . '/templates/default/Voter/tpl.pin.html', true, false);
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css');
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.js');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.js');
         $pin_form = new ilPropertyFormGUI();
-        $pin_form->setFormAction($DIC->ctrl()->getLinkTarget($this, 'checkPin'));
+        $pin_form->setFormAction($DIC[ctrl()->getLinkTarget($this, 'checkPin'));
         $pin_form->addCommandButton('#', $this->txt('common_back'), "pinBackButton");
         $pin_form->addCommandButton('checkPin', $this->txt('voter_send'));
 
@@ -416,9 +416,9 @@ class LiveVotingPlayerGUI
 
         // Show nickname form
         $tpl = new ilTemplate(ilLiveVotingPlugin::getInstance()->getDirectory() . '/templates/default/Voter/tpl.nickname.html', true, false);
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css'); // Por ahora usamos el mismo css que el de pin
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css'); // Por ahora usamos el mismo css que el de pin
         $nickname_form = new ilPropertyFormGUI();
-        $nickname_form->setFormAction($DIC->ctrl()->getLinkTarget($this, 'requestNickname'));
+        $nickname_form->setFormAction($DIC[ctrl()->getLinkTarget($this, 'requestNickname'));
         $nickname_form->addCommandButton('requestNickname', $this->txt('voter_send'));
 
         $te = new ilTextInputGUI($this->txt('voter_nickname_input'), 'nickname_input');
@@ -448,7 +448,7 @@ class LiveVotingPlayerGUI
 
         LiveVotingParticipant::getInstance()->setNickname($nickname, $this->live_voting->getPlayer()->getId());
 
-        $DIC->ctrl()->redirect($this, 'startVoterPlayer');
+        $DIC[ctrl()->redirect($this, 'startVoterPlayer');
     }
 
     /**
@@ -468,10 +468,10 @@ class LiveVotingPlayerGUI
             $this->setLiveVoting($live_voting);
             $param_manager->setPin($_POST['pin_input']);
 
-            $DIC->ctrl()->redirect($this, 'startVoterPlayer');
+            $DIC[ctrl()->redirect($this, 'startVoterPlayer');
         } else {
             $param_manager->setPin('');
-            $DIC->ctrl()->redirect($this, 'requestPin');
+            $DIC[ctrl()->redirect($this, 'requestPin');
         }
 
     }
@@ -538,7 +538,7 @@ class LiveVotingPlayerGUI
 
             if ($this->live_voting->isNicknames() && LiveVotingParticipant::getInstance()->getNickname($player->getId()) == "") {
                 LiveVotingJs::sendResponse([
-                    'redirect' => $DIC->ctrl()->getLinkTargetByClass(["ilObjPluginDispatchGUI", "LiveVotingPlayerGUI"], 'requestNickname')
+                    'redirect' => $DIC[ctrl()->getLinkTargetByClass(["ilObjPluginDispatchGUI", "LiveVotingPlayerGUI"], 'requestNickname')
                 ]);
 
                 return;

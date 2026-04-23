@@ -48,7 +48,7 @@ class Renderer extends RendererILIAS
         if (isset($default_renderer)) {
             $this->default_renderer = $default_renderer;
         } elseif (!isset($this->default_renderer)) {
-            $this->default_renderer = $DIC->ui()->renderer();
+            $this->default_renderer = $DIC[ui()->renderer();
         }
 
         return match (true) {
@@ -165,8 +165,8 @@ class Renderer extends RendererILIAS
         $tpl = $this->getTemplateCustom("tpl.multiple_options.html");
         $plugin_base_path = 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/';
 
-        $DIC->ui()->mainTemplate()->addJavaScript($plugin_base_path . 'templates/customUI/input/js/multiple_options.js');
-        $DIC->ui()->mainTemplate()->addCss($plugin_base_path . 'templates/customUI/input/css/multiple_options.css');
+        $DIC[ui()->mainTemplate()->addJavaScript($plugin_base_path . 'templates/customUI/input/js/multiple_options.js');
+        $DIC[ui()->mainTemplate()->addCss($plugin_base_path . 'templates/customUI/input/css/multiple_options.css');
 
         $this->applyName($component, $tpl);
         $this->maybeDisable($component, $tpl);
@@ -189,8 +189,8 @@ class Renderer extends RendererILIAS
         $tpl = $this->getTemplateCustom("tpl.correct_order.html");
         $plugin_base_path = 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/';
 
-        $DIC->ui()->mainTemplate()->addJavaScript($plugin_base_path . 'templates/customUI/input/js/multiple_options.js');
-        $DIC->ui()->mainTemplate()->addCss($plugin_base_path . 'templates/customUI/input/css/correct_order.css');
+        $DIC[ui()->mainTemplate()->addJavaScript($plugin_base_path . 'templates/customUI/input/js/multiple_options.js');
+        $DIC[ui()->mainTemplate()->addCss($plugin_base_path . 'templates/customUI/input/css/correct_order.css');
 
         $this->applyName($component, $tpl);
         $this->maybeDisable($component, $tpl);
@@ -213,8 +213,8 @@ class Renderer extends RendererILIAS
         $tpl = $this->getTemplateCustom("tpl.multiple_check.html");
         $plugin_base_path = 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/';
 
-        $DIC->ui()->mainTemplate()->addJavaScript($plugin_base_path . 'templates/customUI/input/js/multiple_options.js');
-        $DIC->ui()->mainTemplate()->addCss($plugin_base_path . 'templates/customUI/input/css/multiple_check.css');
+        $DIC[ui()->mainTemplate()->addJavaScript($plugin_base_path . 'templates/customUI/input/js/multiple_options.js');
+        $DIC[ui()->mainTemplate()->addCss($plugin_base_path . 'templates/customUI/input/css/multiple_check.css');
 
         $this->applyName($component, $tpl);
         $this->maybeDisable($component, $tpl);
@@ -272,8 +272,24 @@ class Renderer extends RendererILIAS
 
         $rteSupport = $component->getRTESupport();
 
-        if (!empty($rteSupport)) {
+        /*if (!empty($rteSupport)) {
             $rte->addRTESupport($rteSupport["obj_id"], $rteSupport["obj_type"], $rteSupport["module"], false, $rteSupport['cfg_template']);
+
+            $tpl->setVariable('RTE_EDITOR', "RTEditor");
+        }*/
+
+        if (!empty($rteSupport)) {
+            global $DIC;
+
+            $rte->addRTESupport(
+                $DIC[language(),
+                $DIC[user(),
+                (int) $rteSupport["obj_id"],
+                $rteSupport["obj_type"],
+                $rteSupport["module"] ?? '',
+                false,
+                $rteSupport['cfg_template']
+            );
 
             $tpl->setVariable('RTE_EDITOR', "RTEditor");
         }

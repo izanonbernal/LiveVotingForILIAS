@@ -48,7 +48,7 @@ class LiveVotingDatabase {
     {
         global $DIC;
 
-        $this->db = $DIC->database();
+        $this->db = $DIC[database();
     }
 
     /**

@@ -197,7 +197,7 @@ class LiveVotingInitialisation extends ilInitialisation
 
     public static function initUIFramework(Container $c): void
     {
-        parent::initUIFramework($c);
+        //parent::initUIFramework($c);
     }
 
     /**

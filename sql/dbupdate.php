@@ -2,7 +2,7 @@
 <?php
 //Previous Version
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 if (!$db->tableExists('rep_robj_xlvo_cat')) {
     $fields = [
         'id' => [
@@ -676,7 +676,7 @@ if (!$db->tableExists('xlvo_voter')) {
 <#43>
 <?php
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 if (!$db->tableExists('xlvo_voter_seq')) {
     $db->createSequence('xlvo_voter');
 }
@@ -684,7 +684,7 @@ if (!$db->tableExists('xlvo_voter_seq')) {
 <#44>
 <?php
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 if ($db->tableExists('rep_robj_xlvo_voting_n')) {
     $db->manipulate("ALTER TABLE rep_robj_xlvo_voting_n MODIFY COLUMN question LONGTEXT");
 }
@@ -692,7 +692,7 @@ if ($db->tableExists('rep_robj_xlvo_voting_n')) {
 <#45>
 <?php
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 if ($db->tableExists('rep_robj_xlvo_config_n')) {
     if (!$db->tableColumnExists('rep_robj_xlvo_config_n', 'mode')) {
         $db->addTableColumn('rep_robj_xlvo_config_n', 'mode', [
@@ -814,7 +814,7 @@ if (!$db->tableExists("xlvo_points")) {
 <#46>
 <?php
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 
 if (!$db->tableColumnExists('rep_robj_xlvo_config_n', 'voting_style')) {
     $db->addTableColumn("rep_robj_xlvo_config_n", "voting_style", [
@@ -828,7 +828,7 @@ if (!$db->tableColumnExists('rep_robj_xlvo_config_n', 'voting_style')) {
 <#47>
 <?php
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 
 if ($db->tableColumnExists("rep_robj_xlvo_option_n", "is_correct")) {
     $db->manipulate("ALTER TABLE rep_robj_xlvo_option_n MODIFY COLUMN text VARCHAR(4000)");
@@ -837,7 +837,7 @@ if ($db->tableColumnExists("rep_robj_xlvo_option_n", "is_correct")) {
 <#48>
 <?php
 global $DIC;
-$db = $DIC->database();
+$db = $DIC[database();
 
 if ($db->tableExists("rep_robj_xlvo_player_n")) {
     $db->manipulate("UPDATE rep_robj_xlvo_player_n SET button_states = '[]' WHERE button_states IS NULL");

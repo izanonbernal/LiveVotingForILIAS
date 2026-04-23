@@ -47,7 +47,7 @@ abstract class LiveVotingQuestionTypesUI
     {
         global $DIC;
 
-        $nextClass = $DIC->ctrl()->getNextClass();
+        $nextClass = $DIC[ctrl()->getNextClass();
 
         switch ($nextClass) {
             default:
@@ -67,7 +67,7 @@ abstract class LiveVotingQuestionTypesUI
                     }
                 }
                 if (empty($cmd)) {
-                    $cmd = $DIC->ctrl()->getCmd('submit');
+                    $cmd = $DIC[ctrl()->getCmd('submit');
                 }
 
                 $this->{$cmd}();
@@ -168,7 +168,7 @@ abstract class LiveVotingQuestionTypesUI
     protected function afterSubmit()
     {
         global $DIC;
-        $DIC->ctrl()->redirect(new LiveVotingPlayerGUI, 'startVoterPlayer');
+        $DIC[ctrl()->redirect(new LiveVotingPlayerGUI, 'startVoterPlayer');
     }
 
 
@@ -243,6 +243,6 @@ abstract class LiveVotingQuestionTypesUI
     protected function startVoterPlayer()
     {
         global $DIC;
-        $DIC->ctrl()->redirectByClass(["ilObjPluginDispatchGUI", "LiveVotingPlayerGUI"], 'startVoterPlayer');
+        $DIC[ctrl()->redirectByClass(["ilObjPluginDispatchGUI", "LiveVotingPlayerGUI"], 'startVoterPlayer');
     }
 }

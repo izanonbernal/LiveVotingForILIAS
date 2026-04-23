@@ -42,8 +42,8 @@ class LiveVotingQRModal
     {
         global $DIC;
 
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
 
         $param_manager = ParamManager::getInstance();
 
@@ -53,7 +53,7 @@ class LiveVotingQRModal
 
         $this->modal = $this->factory->modal()->roundtrip(
             vsprintf(ilLiveVotingPlugin::getInstance()->txt("player_pin"), [$liveVoting->getPin()]) . $link,
-            $this->factory->legacy($modal_body)
+            $this->factory->legacy()->content($modal_body) // <--- Uso correcto en ILIAS 11
         );
     }
 

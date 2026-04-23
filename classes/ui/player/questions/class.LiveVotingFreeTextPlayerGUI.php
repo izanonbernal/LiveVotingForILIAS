@@ -168,7 +168,7 @@ class LiveVotingFreeTextPlayerGUI extends LiveVotingQuestionTypesUI
     {
         global $DIC;
         $form = new ilPropertyFormGUI();
-        $form->setFormAction($DIC->ctrl()->getFormAction($this));
+        $form->setFormAction($DIC[ctrl()->getFormAction($this));
         $form->setId('xlvo_free_input');
 
         $votes = array_values($this->player->getVotesOfUser(true));
@@ -203,7 +203,7 @@ class LiveVotingFreeTextPlayerGUI extends LiveVotingQuestionTypesUI
         global $DIC;
         $form = new ilPropertyFormGUI();
         $gui = new LiveVotingPlayerGUI();
-        $form->setFormAction($DIC->ctrl()->getFormAction($this));
+        $form->setFormAction($DIC[ctrl()->getFormAction($this));
 
         $xlvoVotes = $this->player->getVotesOfUser();
         if (count($xlvoVotes) > 0) {

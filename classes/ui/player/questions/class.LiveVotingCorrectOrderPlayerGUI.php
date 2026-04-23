@@ -103,7 +103,7 @@ class LiveVotingCorrectOrderPlayerGUI extends LiveVotingQuestionTypesUI
     {
         global $DIC;
         $tpl = new ilTemplate(ilLiveVotingPlugin::getInstance()->getDirectory() . '/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
-        $tpl->setVariable('ACTION', $DIC->ctrl()->getFormAction($this));
+        $tpl->setVariable('ACTION', $DIC[ctrl()->getFormAction($this));
         $tpl->setVariable('ID', 'xlvo_sortable');
         $tpl->setVariable('BTN_RESET', ilLiveVotingPlugin::getInstance()->txt('qtype_4_clear'));
         $tpl->setVariable('BTN_SAVE', ilLiveVotingPlugin::getInstance()->txt('qtype_4_save'));

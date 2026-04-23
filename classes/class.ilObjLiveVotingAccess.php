@@ -52,9 +52,9 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess
     {
         global $DIC;
         $ref_id = (int)$ref_id ?: (int)$_GET['ref_id'];
-        $user_id = $user_id ?: $DIC->user()->getId();
+        $user_id = $user_id ?: $DIC[user()->getId();
 
-        return $DIC->access()->checkAccessOfUser($user_id, $permission, '', $ref_id);
+        return $DIC[access()->checkAccessOfUser($user_id, $permission, '', $ref_id);
     }
 
     /**
@@ -75,7 +75,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess
     {
         global $DIC;
 
-        $user_id = $DIC->user()->getId();
+        $user_id = $DIC[user()->getId();
 
         if ($user_id != 0 && $user_id != ANONYMOUS_USER_ID) {
             return true;

@@ -26,6 +26,10 @@ use ilObjUser;
 class DummyUser extends ilObjUser
 {
     /**
+     * @var array
+     */
+    public $prefs;
+    /**
      * DummyUser constructor.
      */
     public function __construct()
@@ -44,7 +48,7 @@ class DummyUser extends ilObjUser
     public function getLanguage(): string
     {
         global $DIC;
-        return $DIC->language()->getLangKey();
+        return $DIC[language()->getLangKey();
     }
 
 

@@ -102,7 +102,7 @@ class LiveVotingInputFreeTextUI extends LiveVotingInputResultsGUI
             $tpl->setVariable('PLACEHOLDER_ADD_CATEGORY', ilLiveVotingPlugin::getInstance()->txt('category_title'));
             $tpl->setVariable('LABEL_ADD_ANSWER', ilLiveVotingPlugin::getInstance()->txt('btn_add_answer'));
             $tpl->setVariable('PLACEHOLDER_ADD_ANSWER', ilLiveVotingPlugin::getInstance()->txt('voter_answer'));
-            $tpl->setVariable('BASE_URL', $DIC->ctrl()->getLinkTargetByClass(\ilObjLiveVotingGUI::class, 'apiCall', "", true));
+            $tpl->setVariable('BASE_URL', $DIC[ctrl()->getLinkTargetByClass(\ilObjLiveVotingGUI::class, 'apiCall', "", true));
         }
 
         return $tpl->get();
@@ -113,13 +113,13 @@ class LiveVotingInputFreeTextUI extends LiveVotingInputResultsGUI
     {
         global $DIC;
 
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/libs/waiter.min.js');
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Waiter/waiter.css');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/libs/waiter.min.js');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Waiter/waiter.css');
 
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/libs/dragula.min.js');
-        $DIC->ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/FreeInput/xlvoFreeInputCategorize.js');
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/dragula.css');
-        $DIC->ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/FreeInput/free_input.css');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/libs/dragula.min.js');
+        $DIC[ui()->mainTemplate()->addJavaScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/QuestionTypes/FreeInput/xlvoFreeInputCategorize.js');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/dragula.css');
+        $DIC[ui()->mainTemplate()->addCss('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/FreeInput/free_input.css');
     }
 
 

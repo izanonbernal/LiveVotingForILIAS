@@ -153,27 +153,27 @@ class LiveVotingInitialisationUI
         $this->buildHTTPPath();
         $this->initCore();
         $this->initUser();
-        $this->initLanguage();
-        $this->initTree();
-        $this->initComponentService($GLOBALS["DIC"]);
-        $this->initControllFlow();
-        $this->initAccessHandling();
-        $this->initObjectDefinition();
-        $this->initAppEventHandler();
-        $this->initAccess();
-        $this->initMail();
-        $this->initFilesystem();
-        $this->initResourceStorage();
-        $this->initFileDelivery();
-        $this->initGlobalScreen($GLOBALS["DIC"]);
-        $this->initRbacAdmin();
-        $this->initTemplate();
-        $this->initTabs();
-        $this->initNavigationHistory();
-        $this->initHelp();
-        $this->initHelpTextRetriever();
+//        $this->initLanguage();
+//        $this->initTree();
+//        $this->initComponentService($GLOBALS["DIC"]);
+//        $this->initControllFlow();
+//        $this->initAccessHandling();
+//        $this->initObjectDefinition();
+//        $this->initAppEventHandler();
+//        $this->initAccess();
+//        $this->initMail();
+//        $this->initFilesystem();
+//        $this->initResourceStorage();
+//        $this->initFileDelivery();
+//        $this->initGlobalScreen($GLOBALS["DIC"]);
+//        $this->initRbacAdmin();
+//        $this->initTemplate();
+//        $this->initTabs();
+//        $this->initNavigationHistory();
+//        $this->initHelp();
+//        $this->initHelpTextRetriever();
 
-        LiveVotingInitialisation::initUIFramework($DIC);
+       // LiveVotingInitialisation::initUIFramework($DIC);
     }
 
     /**
@@ -706,7 +706,7 @@ class LiveVotingInitialisationUI
      * Initialise a fake user service to satisfy the help system module.
      * @return void
      */
-    private function initUser()
+    private function initUser(): void
     {
         $this->makeGlobal('ilUser', new DummyUser());
     }

@@ -37,7 +37,8 @@ try {
 
     LiveVotingContext::setContext(1);
 
-    $param_manager = ParamManager::getInstance();
+
+    //$param_manager = ParamManager::getInstance();
 
     $pin = $param_manager->getPin();
 

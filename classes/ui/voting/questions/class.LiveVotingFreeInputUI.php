@@ -73,10 +73,10 @@ class LiveVotingFreeInputUI
         global $DIC;
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
-        $this->control = $DIC->ctrl();
-        $this->request = $DIC->http()->request();
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
+        $this->control = $DIC[ctrl();
+        $this->request = $DIC[http()->request();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
         $this->customFactory = new CustomFactory();
 
         if ($question_id) {
@@ -116,7 +116,7 @@ class LiveVotingFreeInputUI
                 $this->plugin->txt('qtype_2_multi_free_input_info'))
                 ->withValue(isset($this->question) ? $this->question->isMultiFreeInput() : false);
 
-            $form_answers["answer_field"] = $DIC->ui()->factory()->input()->field()->radio($this->plugin->txt('qtype_2_answer_field_multi_line'), "")
+            $form_answers["answer_field"] = $DIC[ui()->factory()->input()->field()->radio($this->plugin->txt('qtype_2_answer_field_multi_line'), "")
                 ->withOption('1', $this->plugin->txt('qtype_2_answer_field_single_line'), $this->plugin->txt('qtype_2_answer_field_single_line_info'))
                 ->withOption('2', $this->plugin->txt('qtype_2_answer_field_multi_line'), $this->plugin->txt('qtype_2_answer_field_multi_line_info'))
                 ->withValue(isset($this->question) ? $this->question->getAnswerField() : 1);
@@ -137,9 +137,9 @@ class LiveVotingFreeInputUI
                 $form_action = $this->control->getFormActionByClass(ilObjLiveVotingGUI::class, "selectedFreeInput");
             }
 
-            $DIC->ui()->mainTemplate()->addJavaScript("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoForms.js");
+            $DIC[ui()->mainTemplate()->addJavaScript("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoForms.js");
 
-            $DIC->ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
+            $DIC[ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
 
 
             return $this->createForm($form_action, $sections);

@@ -59,7 +59,7 @@ class TextareaRTE extends Input implements Textarea {
         $this->label = $label;
         $this->byline = $byline;
 
-        parent::__construct(new Factory(), $DIC->refinery());
+        parent::__construct(new Factory(), $DIC[refinery());
     }
 
     public function getLabel(): string
@@ -251,5 +251,15 @@ class TextareaRTE extends Input implements Textarea {
     public function getRTESupport(): array
     {
         return $this->rteSupport;
+    }
+
+    #[\Override] public function withMustacheVariables(array $variable_definitions, ?string $context_information = null): static
+    {
+        // TODO: Implement withMustacheVariables() method.
+    }
+
+    #[\Override] public function withoutStripTags(): Textarea
+    {
+        // TODO: Implement withoutStripTags() method.
     }
 }

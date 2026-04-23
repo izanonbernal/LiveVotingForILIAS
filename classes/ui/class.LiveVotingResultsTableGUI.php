@@ -55,6 +55,7 @@ class LiveVotingResultsTableGUI implements DataRetrieval
     private $request;
     private int $obj_id;
     private int $round_id;
+    private array $records = [];
 
     public function __construct(ilObjLiveVotingGUI $a_parent_obj, string $parent_cmd, int $obj_id, int $round_id)
     {
@@ -63,16 +64,16 @@ class LiveVotingResultsTableGUI implements DataRetrieval
         $this->parent_obj = $a_parent_obj;
         $this->parent_cmd = $parent_cmd;
 
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
-        $this->ctrl = $DIC->ctrl();
-        $this->ui_service = $DIC->uiService();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
+        $this->ctrl = $DIC[ctrl();
+        $this->ui_service = $DIC[uiService();
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
 
         $this->player_id = $a_parent_obj->getObject()->getLiveVoting()->getPlayer()->getId();
 
-        $this->request = $DIC->http()->request();
+        $this->request = $DIC[http()->request();
 
         $this->obj_id = $obj_id;
         $this->round_id = $round_id;
@@ -81,23 +82,38 @@ class LiveVotingResultsTableGUI implements DataRetrieval
     /**
      * @throws LiveVotingException
      */
-    public function getRows(DataRowBuilder $row_builder, array $visible_column_ids, Range $range, Order $order, ?array $filter_data, ?array $additional_parameters): Generator
+    public function getRows(
+        DataRowBuilder $row_builder,
+        array          $visible_column_ids,
+        Range          $range,
+        Order          $order,
+        mixed          $additional_viewcontrol_data,
+        mixed          $filter_data,
+        mixed          $additional_parameters
+    ): \Generator
     {
-        $records = $this->getRecords($filter_data, $order);
 
-        foreach ($records as $record) {
-            yield $row_builder->buildDataRow((string) $record['id'], $record);
+
+        $this->parseData($filter_data);
+
+        foreach ($this->records as $record) {
+            yield $row_builder->buildDataRow((string)$record['id'], $record);
         }
     }
 
     /**
      * @throws LiveVotingException
      */
-    public function getTotalRowCount(?array $filter_data, ?array $additional_parameters): ?int
+    public function getTotalRowCount(
+        mixed $additional_viewcontrol_data,
+        mixed $filter_data,
+        mixed $additional_parameters
+    ): ?int
     {
-        $records = $this->getRecords($filter_data);
-
-        return count($records);
+        if (empty($this->records)) {
+            $this->parseData($filter_data);
+        }
+        return count($this->records);
     }
 
     /**
@@ -134,10 +150,12 @@ class LiveVotingResultsTableGUI implements DataRetrieval
         );
 
         $table = $this->factory->table()->data(
+            $this,
             $this->plugin->txt('results_title'),
-            $this->getColumns(),
-            $this
-        )->withRequest($this->request)->withFilter($this->ui_service->filter()->getData($filter));
+            $this->getColumns()
+        )
+            ->withId('lv_results_' . $this->obj_id)
+            ->withRequest($this->request);
 
         return $this->renderer->render($filter) . $this->renderer->render($table);
     }
@@ -234,7 +252,7 @@ class LiveVotingResultsTableGUI implements DataRetrieval
                     "voting_id" => $question->getId(),
                     "round_id" => $this->round_id,
                     "id" => $vote->getId(),
-                    "points" => LiveVotingPlayer::getPlayerPoints($vote->getUserIdType() == 1 ? (string) $vote->getUserId() : (string) $vote->getUserIdentifier(), $this->obj_id, $question->getId(), $this->round_id)
+                    "points" => LiveVotingPlayer::getPlayerPoints($vote->getUserIdType() == 1 ? (string)$vote->getUserId() : (string)$vote->getUserIdentifier(), $this->obj_id, $question->getId(), $this->round_id)
                 );
             }
         }
@@ -260,5 +278,12 @@ class LiveVotingResultsTableGUI implements DataRetrieval
         }
 
         return $a_data;
+    }
+
+    private function parseData(mixed $filter_data): void
+    {
+        $data = $this->getRecords();
+
+        $this->records = is_array($data) ? $data : [];
     }
 }

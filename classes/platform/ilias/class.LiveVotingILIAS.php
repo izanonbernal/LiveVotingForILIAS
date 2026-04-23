@@ -38,7 +38,7 @@ class LiveVotingILIAS extends ILIAS
     public function getSetting(string $a_keyword, ?string $a_default_value = null): ?string
     {
         global $DIC;
-        return $DIC->settings()->get($a_keyword);
+        return $DIC[settings()->get($a_keyword);
     }
 
 

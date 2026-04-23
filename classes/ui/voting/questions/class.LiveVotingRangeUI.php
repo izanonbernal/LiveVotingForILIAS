@@ -73,10 +73,10 @@ class LiveVotingRangeUI
         global $DIC;
 
         $this->plugin = ilLiveVotingPlugin::getInstance();
-        $this->control = $DIC->ctrl();
-        $this->request = $DIC->http()->request();
-        $this->factory = $DIC->ui()->factory();
-        $this->renderer = $DIC->ui()->renderer();
+        $this->control = $DIC[ctrl();
+        $this->request = $DIC[http()->request();
+        $this->factory = $DIC[ui()->factory();
+        $this->renderer = $DIC[ui()->renderer();
         $this->customFactory = new CustomFactory();
 
         if ($question_id) {
@@ -115,7 +115,7 @@ class LiveVotingRangeUI
                 $this->plugin->txt('qtype_6_option_percentage'),
                 $this->plugin->txt('qtype_6_option_percentage_info'))->withValue(isset($this->question) ? $this->question->isPercentage() : false);
 
-            $form_answers["display_mode"] = $DIC->ui()->factory()->input()->field()->radio($this->plugin->txt('qtype_6_option_alternative_result_display_mode'), "")
+            $form_answers["display_mode"] = $DIC[ui()->factory()->input()->field()->radio($this->plugin->txt('qtype_6_option_alternative_result_display_mode'), "")
                 ->withOption('0', $this->plugin->txt('qtype_6_display_mode_nr_0'))
                 ->withOption('2', $this->plugin->txt('qtype_6_display_mode_nr_2'))
                 ->withOption('1', $this->plugin->txt('qtype_6_display_mode_nr_1'))
@@ -152,9 +152,9 @@ class LiveVotingRangeUI
                 $form_action = $this->control->getFormActionByClass(ilObjLiveVotingGUI::class, "selectedRange");
             }
 
-            $DIC->ui()->mainTemplate()->addJavaScript("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoForms.js");
+            $DIC[ui()->mainTemplate()->addJavaScript("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/js/xlvoForms.js");
 
-            $DIC->ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
+            $DIC[ui()->mainTemplate()->addCss("Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/css/livevoting.css");
 
 
             return $this->createForm($form_action, $sections);
